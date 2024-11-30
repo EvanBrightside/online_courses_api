@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: <%= ENV.fetch('APP_DB_HOST', 'postgres') %>
+  port: <%= ENV.fetch('APP_DB_PORT', '5432') %>
+  username: <%= ENV.fetch('APP_DB_USERNAME', 'postgres') %>
+
+development:
+  <<: *default
+  database: <%= ENV.fetch('APP_DB_NAME', 'online_courses_api_development') %>
+
+test:
+  <<: *default
+  database: <%= ENV.fetch('APP_DB_NAME', 'online_courses_api_test') %>
+
+production:
+  <<: *default
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 20 } %>
+  database: <%= ENV.fetch('APP_DB_NAME_ENV', 'online_courses_api_production') %>
+  username: <%= ENV.fetch('APP_DB_USERNAME_ENV', 'online_courses_api') %>
+  password: <%= ENV['APP_DATABASE_PASSWORD'] %>
